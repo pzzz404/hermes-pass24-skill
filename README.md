@@ -45,10 +45,10 @@ PASS24_VEHICLE_TYPE=404
 Hermes вызывает команды от имени локального процесса:
 
 ```bash
-PASS24_ENV_FILE=/secure/path/pass24.env python -m bot.cli create "А123ВО77 Toyota"
-PASS24_ENV_FILE=/secure/path/pass24.env python -m bot.cli list
-PASS24_ENV_FILE=/secure/path/pass24.env python -m bot.cli cancel 12345
-PASS24_ENV_FILE=/secure/path/pass24.env python -m bot.cli discover
+PASS24_ENV_FILE=/secure/path/pass24.env python -m pass24_skill.cli create "А123ВО77 Toyota"
+PASS24_ENV_FILE=/secure/path/pass24.env python -m pass24_skill.cli list
+PASS24_ENV_FILE=/secure/path/pass24.env python -m pass24_skill.cli cancel 12345
+PASS24_ENV_FILE=/secure/path/pass24.env python -m pass24_skill.cli discover
 ```
 
 Ответ всегда JSON. Hermes должен передавать в `create` уже распознанные номер и марку; обработка голоса и Telegram-взаимодействие остаются исключительно на стороне Hermes.
@@ -73,7 +73,7 @@ email = номер телефона PASS24
 password = пароль PASS24
 ```
 
-Поэтому `PASS24_PHONE` содержит телефон, а не адрес электронной почты. Это соответствие реализовано в [`bot/api.py`](bot/api.py).
+Поэтому `PASS24_PHONE` содержит телефон, а не адрес электронной почты. Это соответствие реализовано в [`pass24_skill/api.py`](pass24_skill/api.py).
 
 ## Безопасность и приватность
 
@@ -85,8 +85,8 @@ password = пароль PASS24
 ## Проверка установки
 
 ```bash
-.venv/bin/python -m compileall bot
-.venv/bin/python -m bot.cli --help
+.venv/bin/python -m compileall pass24_skill
+.venv/bin/python -m pass24_skill.cli --help
 ```
 
 ## Известное ограничение TLS
@@ -103,6 +103,6 @@ password = пароль PASS24
 
 A Hermes skill for ordering PASS24.online vehicle passes through Telegram. A user sends a text or voice request, Hermes recognises the vehicle details, invokes the local PASS24 CLI, and replies with the result.
 
-This repository implements the PASS24 action inside Hermes. It is **not** a Telegram bot: Hermes owns all messaging and speech-to-text, then invokes `bot.cli` locally and receives JSON in return.
+This repository implements the PASS24 action inside Hermes. It is **not** a Telegram bot: Hermes owns all messaging and speech-to-text, then invokes `pass24_skill.cli` locally and receives JSON in return.
 
 The PASS24 login API calls its login property `email`, but its value must be the account phone number. Keep all credentials in a local file referenced by `PASS24_ENV_FILE`; never commit it.
