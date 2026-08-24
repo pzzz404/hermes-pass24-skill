@@ -1,0 +1,21 @@
+# Credentials and local configuration. Keep only the safe template public.
+.env
+.env.*
+!.env.example
+
+# Runtime data may contain Pass24 identifiers and pass history.
+data/
+config_cache.json
+
+# Python and tooling artefacts.
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.log
+.DS_Store
+.pytest_cache/
+.coverage
+htmlcov/
