@@ -6,7 +6,7 @@ class Settings(BaseSettings):
 
     # Pass24 API
     pass24_base_url: str = "https://mobile-api.pass24online.ru/v1"
-    # The Pass24 Mobile API expects this phone number in its `email` field.
+    # The current Pass24 Mobile API expects this value in its `phone` field.
     pass24_phone: str
     pass24_password: str
     pass24_address_id: int = 0  # 0 = автообнаружение при старте

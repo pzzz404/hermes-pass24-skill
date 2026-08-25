@@ -58,7 +58,7 @@ PASS24_ENV_FILE=/secure/path/pass24.env python -m pass24_skill.cli discover
 | Переменная | Назначение |
 |---|---|
 | `PASS24_BASE_URL` | URL мобильного API; обычно оставьте значение из шаблона. |
-| `PASS24_PHONE` | Номер телефона для входа; отправляется API как `email`. |
+| `PASS24_PHONE` | Номер телефона для входа; отправляется API как `phone`. |
 | `PASS24_PASSWORD` | Пароль от аккаунта PASS24. |
 | `PASS24_ADDRESS_ID` | ID адреса; `0` позволяет получить его через `discover`. |
 | `PASS24_TENANT_ID` | ID профиля жильца; `0` позволяет получить его через `discover`. |
@@ -66,14 +66,14 @@ PASS24_ENV_FILE=/secure/path/pass24.env python -m pass24_skill.cli discover
 
 ### Особенность авторизации PASS24
 
-В API поле логина называется `email`, но для авторизации в него нужно передать номер телефона, используемый в приложении PASS24:
+Текущий мобильный API PASS24 требует поле `phone`. Некоторые старые версии API и документации использовали поле `email`; с ними новый login payload несовместим:
 
 ```text
-email = номер телефона PASS24
+phone = номер телефона PASS24
 password = пароль PASS24
 ```
 
-Поэтому `PASS24_PHONE` содержит телефон, а не адрес электронной почты. Это соответствие реализовано в [`pass24_skill/api.py`](pass24_skill/api.py).
+Поэтому `PASS24_PHONE` содержит телефон, а не адрес электронной почты. Актуальный payload реализован и проверяется в [`pass24_skill/api.py`](pass24_skill/api.py).
 
 ## Безопасность и приватность
 
@@ -105,4 +105,4 @@ A Hermes skill for ordering PASS24.online vehicle passes through Telegram. A use
 
 This repository implements the PASS24 action inside Hermes. It is **not** a Telegram bot: Hermes owns all messaging and speech-to-text, then invokes `pass24_skill.cli` locally and receives JSON in return.
 
-The PASS24 login API calls its login property `email`, but its value must be the account phone number. Keep all credentials in a local file referenced by `PASS24_ENV_FILE`; never commit it.
+The current PASS24 Mobile API requires the `phone` login property; older API versions and documentation used `email`. Keep all credentials in a local file referenced by `PASS24_ENV_FILE`; never commit it.
