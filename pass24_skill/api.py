@@ -32,9 +32,8 @@ class Pass24Client:
     async def _login(self) -> None:
         resp = await self._client.post(
             "/auth/login",
-            # Mobile API names the login field `email`, but accepts the phone
-            # number that is used to sign in to Pass24.
-            json={"email": settings.pass24_phone, "password": settings.pass24_password},
+            # Current Mobile API expects `phone`; older versions used `email`.
+            json={"phone": settings.pass24_phone, "password": settings.pass24_password},
         )
         resp.raise_for_status()
         data = resp.json()

@@ -6,6 +6,10 @@
 
 English: Hermes skill for ordering PASS24.online vehicle passes from Telegram text or voice requests.
 
+Актуальный контракт авторизации: мобильный API PASS24 принимает номер аккаунта в поле `phone`. Устаревшие версии API и документации использовали поле `email`.
+
+Current authentication contract: the PASS24 Mobile API accepts the account number in the `phone` field. Older API versions and documentation used `email`.
+
 ## Suggested topics
 
 `pass24`, `hermes`, `python`, `cli`, `vehicle-pass`, `access-control`, `agent-tools`
